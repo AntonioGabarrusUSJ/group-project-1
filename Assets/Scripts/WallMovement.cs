@@ -14,6 +14,8 @@ public class WallMovement : MonoBehaviour
     private Quaternion openedRight;
     private Quaternion closed;
 
+    public GameObject CloseAuto;
+
     private void Start()
     {
         Debug.Log(transform.rotation.eulerAngles);
@@ -24,22 +26,25 @@ public class WallMovement : MonoBehaviour
 
     void Update()
     {
-        bool shouldCloseWall = IsPlayerClose();
-        isWallClosed = shouldCloseWall;
+        if (this.CloseAuto.activeSelf)
+        {
+            bool shouldCloseWall = IsPlayerClose();
+            isWallClosed = shouldCloseWall;
 
-        Quaternion targetRotationLeft = isWallClosed ? closed : openedLeft;
-        Quaternion targetRotationRight = isWallClosed ? closed : openedRight;
-        halfWallLeft.transform.rotation = Quaternion.Lerp(
-            halfWallLeft.transform.rotation,
-            targetRotationLeft,
-            Time.deltaTime * rotationSpeed
-        );
+            Quaternion targetRotationLeft = isWallClosed ? closed : openedLeft;
+            Quaternion targetRotationRight = isWallClosed ? closed : openedRight;
+            halfWallLeft.transform.rotation = Quaternion.Lerp(
+                halfWallLeft.transform.rotation,
+                targetRotationLeft,
+                Time.deltaTime * rotationSpeed
+            );
 
-        halfWallRight.transform.rotation = Quaternion.Lerp(
-            halfWallRight.transform.rotation,
-            targetRotationRight,
-            Time.deltaTime * rotationSpeed
-        );
+            halfWallRight.transform.rotation = Quaternion.Lerp(
+                halfWallRight.transform.rotation,
+                targetRotationRight,
+                Time.deltaTime * rotationSpeed
+            );
+        }
     }
 
     private bool IsPlayerClose()
