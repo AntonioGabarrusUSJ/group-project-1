@@ -10,9 +10,17 @@ public class WallMovement : MonoBehaviour
 
     private bool isWallClosed = false;
 
-    private Quaternion openedLeft = Quaternion.Euler(0f, -90f, 0f);
-    private Quaternion openedRight = Quaternion.Euler(0f, 90f, 0f);
-    private Quaternion closed = Quaternion.Euler(0f, 0f, 0f);
+    private Quaternion openedLeft;
+    private Quaternion openedRight;
+    private Quaternion closed;
+
+    private void Start()
+    {
+        Debug.Log(transform.rotation.eulerAngles);
+        openedLeft = Quaternion.Euler(0f, -90f + transform.rotation.eulerAngles.y, 0f);
+        openedRight = Quaternion.Euler(0f, 90f + transform.rotation.eulerAngles.y, 0f);
+        closed = Quaternion.Euler(0f, 0f + transform.rotation.eulerAngles.y, 0f);
+}
 
     void Update()
     {
