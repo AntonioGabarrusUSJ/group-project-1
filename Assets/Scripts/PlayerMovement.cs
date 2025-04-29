@@ -51,8 +51,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f, groundLayer);
-
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * transform.parent.localScale.y * 0.5f + 0.2f, groundLayer);
         StoreInput();
         SpeedControl();
 
